@@ -1,0 +1,53 @@
+<style>
+  * {
+    color: white;
+  }
+  .container {
+    background-color: #495057;
+    padding-bottom: 20px;
+  }
+  h1 {
+    text-align: center;
+  }
+  textarea {
+    resize: none;
+    margin-bottom: 20px;
+  }
+  .form-date {
+    float: left;
+    margin-right: 30px;
+  }
+  .form-Job {
+    clear: both;
+  }
+  .btn {
+    width: 67px;
+  }
+  a:hover, a:visited, a:link {
+    color: white;
+    text-decoration: none;
+  }
+</style>
+<div class="container">
+  <h1><a href="/">Job Schedular</a></h1>
+  <h2>Modify</h2>
+  <form method="get" action="/home/real_update/<%=@post.id%>" >
+    <div class="form-group form-date">
+      <label for="date">Date</label>
+      <input type="date" name="date" class="form-control date_form" value="<%=@post.date%>" name="_date" required>
+    </div>
+
+    <div class="form-group form-Job">
+      <label for="title">Job</label>
+      <input name="title" id="content" class="form-control" value="<%=@post.title%>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea name="content" id="content" class="form-control" rows="8"><%=@post.content%></textarea>
+    </div>
+
+
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>

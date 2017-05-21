@@ -1,0 +1,128 @@
+<style>
+  * {
+    color: white;
+  }
+  .container {
+    background-color: #495057;
+  }
+  textarea {
+    resize: none;
+    margin-bottom: 20px;
+  }
+  h1 {
+    text-align: center;
+  }
+  .date_form{
+    width: 200px;
+  }
+  .form-date {
+    float: left;
+    margin-right: 30px;
+  }
+  .form-Job {
+    clear: both;
+  }
+
+  .list-date {
+    width: 100px;
+  }
+  .list-writer {
+    width: 150px;
+  }
+  .list-job {
+    width: 200px;
+  }
+  .list-content {
+    width: 400px;
+    border: none;
+    background-color: transparent;
+  }
+  .last_td {
+    text-align: right;
+  }
+
+  .btn {
+    width: 67px;
+  }
+  a:hover, a:visited, a:link {
+    color: white;
+    text-decoration: none;
+  }
+  ._pagination {
+    text-align: center;
+    margin-bottom : 10px;
+  }
+
+</style>
+<div class="container">
+  <h1><a href="/">Job Schedular</a></h1>
+  <h2>Write</h2>
+  <!--<form method="get" action="/home/create">-->
+  <form method="post" action="/home/create" enctype="multipart/form-data">
+    <div class="form-group form-date">
+      <label for="date">Date</label>
+      <input type="date" class="form-control date_form" name="_date" required>
+    </div>
+
+    <div class="form-group">
+      <label for="img">Photo Input</label>
+      <input type="file" name="img" id="exampleInputFile">
+    </div>
+
+    <div class="form-group form-Job">
+      <label for="title">Job</label>
+      <input name="title" id="content" class="form-control" placeholder="Please enter your Job" required>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea name="content" id="content" class="form-control" rows="8" placeholder="Please enter your details"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+
+
+  <h2>Job List</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="list-date">Date</th>
+          <th class="list-writer">Writer</th>
+          <th class="list-job">Job</th>
+          <th class="list-content">Content</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td>
+            <%=post.date%>
+          </td>
+          <td>
+            <%= post.user.email %>
+          </td>
+          <td>
+            <%=post.title%>
+          </td>
+          <td>
+            <input type="text" class="list-content" value="<%=post.content%>" disabled>
+          </td>
+          <td class="last_td">
+            <a class="btn btn-info" href="/home/read/<%=post.id%>">Read</a>
+            <% if current_user == post.user %>
+              <a class="btn btn-warning" href="/home/update/<%=post.id%>">Modify</a>
+              <a class="btn btn-danger" href="/home/destroy/<%=post.id%>">Delete</a>
+            <% end %>
+          </td>
+
+        </tr>
+      <% end %>
+
+      </tbody>
+    </table>
+  <div class="_pagination">
+    <%= will_paginate @posts, renderer: BootstrapPagination::Rails %>
+  </div>
+</div>

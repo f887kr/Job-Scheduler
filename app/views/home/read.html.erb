@@ -1,0 +1,141 @@
+<style>
+  * {
+    color: white;
+  }
+  .container {
+    background-color: #495057;
+    padding-bottom: 20px;
+  }
+  h1 {
+    text-align: center;
+  }
+  textarea {
+    resize: none;
+    margin-bottom: 20px;
+  }
+  .last_td {
+    text-align: right;
+  }
+  .date {
+    width: 180px;
+  }
+  .writer {
+    color: white;
+    font-size: 15px;
+    /*padding-top: 5px;*/
+  }
+  .form-date {
+    float: left;
+    margin-right: 20px;
+  }
+  .form-writer {
+    float: left;
+  }
+  .form-Job {
+    clear: both;
+  }
+  img {
+    display: block;
+    height: 300px;
+    width: auto;
+    cursor: pointer;
+  }
+  .list-content {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+  }
+  .write-content {
+    width: 100%;
+  }
+  .btn {
+    width: 67px;
+  }
+  a:hover, a:visited, a:link {
+    color: white;
+    text-decoration: none;
+  }
+</style>
+<div class="container">
+  <h1><a href="/">Job Schedular</a></h1>
+  <h2>Read</h2>
+    <div class="form-group form-date">
+      <label for="date">Date</label>
+      <input type="date" class="form-control date" value="<%=@post.date%>" name="_date" disabled>
+    </div>
+
+    <div class="form-group form-writer">
+      <label for="writer">Writer</label>
+      <p name="writer" class="writer"><%=@post.user.email%></p>
+    </div>
+
+    <div class="form-group form-Job">
+      <label for="title">Job</label>
+      <input name="title" id="content" class="form-control" value="<%=@post.title%>" disabled>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea name="content" id="content" class="form-control" rows="10" disabled><%=@post.content%></textarea>
+    </div>
+
+    <div class="form-group">
+      <% unless @post.img.nil? %>
+          <p>Image</p>
+          <img src="<%=@post.img%>" onclick="window.open(this.src)" >
+      <% end %>
+    </div>
+
+    <br>
+
+    <h2>Reply</h2>
+    <form method= "get" action = "/home/read/<%= @post.id %>/comment_create">
+      <table class="table">
+        <thead>
+        <tr>
+          <th class="write-content">Content</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>
+                <input type="text" name='content' class="form-control" maxlength="100" required>
+              </td>
+              <td class="last_td">
+                <button type="submit" class="btn btn-success">Write</button>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </form>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th style="width:200px">Writer</th>
+      <th class="list-content">Content</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @post.comments.each do |comment| %>
+        <tr>
+          <td>
+            <%=comment.user.email%>
+          </td>
+          <td>
+            <input type="text" class="list-content" value="<%=comment.content%>" disabled>
+          </td>
+          <td class="last_td">
+            <% if current_user == comment.user %>
+            <a class="btn btn-danger" href="/home/read/<%=comment.id%>/comment_destroy">Delete</a>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <button onclick="location.href='/'" class="btn btn-primary">Back</button>
+</div>
