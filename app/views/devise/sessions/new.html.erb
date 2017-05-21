@@ -1,11 +1,18 @@
 <style>
   .login{
     margin-bottom : 10px;
-    margin-top : 10px;
+  }
+  h1 {
+    text-align: center;
+  }
+  a:hover, a:visited, a:link {
+    color: black;
+    text-decoration: none;
   }
 </style>
 
 <div class="container login">
+  <h1><a href="/">Job Schedular</a></h1>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
       <%= f.label :email %><br />

@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!, only: [:create, :read]
-  def index
 
+  def index
     # @posts = Post.all.sort_by(&:date)
     # @posts.save
     @posts = Post.paginate(:page => params[:page], :per_page => 5).order('date')
@@ -15,9 +15,8 @@ class HomeController < ApplicationController
     @user = User.find(current_user.id)
     # Post.create(user_id: @user.id, title: params[:title], content: params[:content],
     #             date: params[:_date], img: @imgUploader.url)
-
     @post = @user.posts.new(title: params[:title], content: params[:content],
-                            date: params[:_date], img: @imgUploader.url)
+                            date: params[:_date], img: @imgUploader.url, img_thumb: @imgUploader.thumb.url)
     @post.save
 
     # @post.img = @imgUploader.url

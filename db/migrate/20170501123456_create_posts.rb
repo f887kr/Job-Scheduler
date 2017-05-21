@@ -3,9 +3,9 @@ class CreatePosts < ActiveRecord::Migration[5.0]
     create_table :posts do |t|
       t.string :title
       t.text :content
-      t.string :start_date
-      t.string :end_date
+      t.string :date
       t.string :img
+      t.string :img_thumb
       t.belongs_to :user
 
       t.timestamps

@@ -1,11 +1,18 @@
 <style>
   .signup {
     margin-bottom : 10px;
-    margin-top : 10px;
+  }
+  h1 {
+    text-align: center;
+  }
+  a:hover, a:visited, a:link {
+    color: black;
+    text-decoration: none;
   }
 </style>
 
 <div class="container signup">
+  <h1><a href="/">Job Schedular</a></h1>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
 
